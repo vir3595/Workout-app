@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Workout Planner</title>
+    <title>Workout Planner</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Welcome Screen -->
     <div class="welcome-screen">
-        <h1>🔥 Get Ready to Crush It! 💪</h1>
+        <h1>🔥 Get Ready to Train! 💪</h1>
         <p id="quote"></p>
         <button id="startBtn">Start Planning 🚀</button>
     </div>
 
+    <!-- Weekly Planner -->
     <div id="weekView" class="hidden">
         <h2>Select Your Workout Day 🏋️‍♂️</h2>
         <ul class="weekday-list">
@@ -24,13 +26,31 @@
             <li><button class="day-btn" onclick="openDay('saturday')">Saturday</button></li>
             <li><button class="day-btn" onclick="openDay('sunday')">Sunday</button></li>
         </ul>
+        <button id="historyBtn">📊 View Progress</button>
     </div>
 
+    <!-- Daily Workout Page -->
     <div id="dayView" class="hidden">
-        <button id="backBtn">⬅️ Back</button>
+        <button id="backBtn">⬅️</button>
         <h2 id="dayTitle"></h2>
         <ul id="workout-list"></ul>
-        <button id="saveWorkout">✅ Save Progress</button>
+
+        <div class="add-exercise">
+            <input type="text" id="exerciseName" placeholder="Exercise">
+            <input type="number" id="sets" placeholder="Sets">
+            <input type="number" id="reps" placeholder="Reps">
+            <input type="number" id="weight" placeholder="Weight (kg)">
+            <button onclick="addExercise()">➕ Add</button>
+        </div>
+
+        <button id="saveWorkout">✅ Save</button>
+    </div>
+
+    <!-- History Page -->
+    <div id="historyView" class="hidden">
+        <button id="historyBack">⬅️</button>
+        <h2>📅 Week-wise Progress</h2>
+        <ul id="history-list"></ul>
     </div>
 
     <script src="script.js"></script>
