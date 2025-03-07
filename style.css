@@ -7,8 +7,13 @@ body {
     padding: 0;
 }
 
-.hidden {
-    display: none;
+/* Center welcome screen vertically */
+#welcome-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full screen height */
 }
 
 h1, h2 {
@@ -24,21 +29,27 @@ button {
     font-size: 16px;
     border-radius: 5px;
     margin: 5px;
+    width: 200px;
 }
 
 button:hover {
     background: #0c0;
 }
 
+/* Align weekday buttons to the left */
 #days-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: flex-start;
+    margin-left: 20px;
+    width: 300px;
 }
 
 .day-btn {
-    width: 100px;
+    text-align: left;
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
 }
 
 #workout-form {
@@ -70,9 +81,4 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.completed {
-    text-decoration: line-through;
-    opacity: 0.5;
 }
