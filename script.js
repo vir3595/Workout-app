@@ -1,94 +1,106 @@
-const quotes = [
-    "No pain, no gain!",
-    "Your only limit is you.",
-    "Sweat, smile, repeat.",
-    "Push yourself because no one else will!",
-    "Train insane or remain the same."
-];
+document.addEventListener("DOMContentLoaded", () => {
+    const welcomeScreen = document.getElementById("welcome-screen");
+    const weekPlan = document.getElementById("week-plan");
+    const workoutPlanner = document.getElementById("workout-planner");
+    const dayTitle = document.getElementById("day-title");
+    const backBtn = document.getElementById("back-btn");
+    const startBtn = document.getElementById("start-btn");
 
-// Display random motivational quote
-document.getElementById("quote").innerText = quotes[Math.floor(Math.random() * quotes.length)];
-
-// Screen transitions
-document.getElementById("start-btn").addEventListener("click", () => {
-    document.getElementById("welcome-screen").classList.add("hidden");
-    document.getElementById("weekly-planner").classList.remove("hidden");
-});
-
-// Store workouts
-let workouts = JSON.parse(localStorage.getItem("workouts")) || {};
-
-// Check if it's a new week (Reset Status)
-const lastReset = localStorage.getItem("lastReset");
-const currentWeek = new Date().getWeek();
-if (!lastReset || lastReset < currentWeek) {
-    for (let day in workouts) {
-        workouts[day].forEach(workout => workout.done = false);
-    }
-    localStorage.setItem("workouts", JSON.stringify(workouts));
-    localStorage.setItem("lastReset", currentWeek);
-}
-
-// Handle day button clicks
-document.querySelectorAll(".day-btn").forEach(button => {
-    button.addEventListener("click", () => {
-        const day = button.getAttribute("data-day");
-        loadWorkoutDay(day);
-    });
-});
-
-function loadWorkoutDay(day) {
-    document.getElementById("weekly-planner").classList.add("hidden");
-    document.getElementById("workout-day").classList.remove("hidden");
-    document.getElementById("workout-day-title").innerText = `Workout for ${day}`;
-
-    // Populate workouts
+    const workoutForm = document.getElementById("workout-form");
+    const exerciseName = document.getElementById("exercise-name");
+    const exerciseWeight = document.getElementById("exercise-weight");
+    const exerciseReps = document.getElementById("exercise-reps");
     const workoutList = document.getElementById("workout-list");
-    workoutList.innerHTML = "";
 
-    (workouts[day] || []).forEach((workout, index) => {
-        let li = document.createElement("li");
-        li.innerHTML = `${workout.exercise} - ${workout.weight}kg x ${workout.reps} 
-                        <button class="done-btn" data-day="${day}" data-index="${index}">
-                            ${workout.done ? "✅" : "❌"}
-                        </button>`;
-        workoutList.appendChild(li);
+    let selectedDay = "";
+    let workouts = JSON.parse(localStorage.getItem("workouts")) || {};
+
+    // Load a new motivational quote on refresh
+    const quotes = [
+        "Push yourself, because no one else is going to do it for you!",
+        "Success starts with self-discipline.",
+        "The pain you feel today will be the strength you feel tomorrow.",
+        "No excuses, just results!",
+        "Train insane or remain the same!"
+    ];
+    document.getElementById("quote").innerText = quotes[Math.floor(Math.random() * quotes.length)];
+
+    // Start Planning Button
+    startBtn.addEventListener("click", () => {
+        welcomeScreen.classList.add("hidden");
+        weekPlan.classList.remove("hidden");
     });
 
-    // Handle workout completion toggle
-    document.querySelectorAll(".done-btn").forEach(btn => {
-        btn.addEventListener("click", function () {
-            const day = this.getAttribute("data-day");
-            const index = this.getAttribute("data-index");
-            workouts[day][index].done = !workouts[day][index].done;
-            localStorage.setItem("workouts", JSON.stringify(workouts));
-            loadWorkoutDay(day); // Refresh UI
+    // Handle Day Selection
+    document.querySelectorAll(".day-btn").forEach(button => {
+        button.addEventListener("click", () => {
+            selectedDay = button.getAttribute("data-day");
+            dayTitle.innerText = `${selectedDay} Workout Plan`;
+            loadWorkoutList();
+            weekPlan.classList.add("hidden");
+            workoutPlanner.classList.remove("hidden");
         });
     });
 
-    // Handle adding a workout
-    document.getElementById("add-workout").addEventListener("click", () => {
-        const exercise = document.getElementById("exercise").value;
-        const weight = document.getElementById("weight").value;
-        const reps = document.getElementById("reps").value;
-
-        if (exercise && weight && reps) {
-            workouts[day] = workouts[day] || [];
-            workouts[day].push({ exercise, weight, reps, done: false });
-            localStorage.setItem("workouts", JSON.stringify(workouts));
-            loadWorkoutDay(day);
-        }
+    // Handle Back Button
+    backBtn.addEventListener("click", () => {
+        workoutPlanner.classList.add("hidden");
+        weekPlan.classList.remove("hidden");
     });
-}
 
-// Back button to weekly planner
-document.getElementById("back-btn").addEventListener("click", () => {
-    document.getElementById("workout-day").classList.add("hidden");
-    document.getElementById("weekly-planner").classList.remove("hidden");
+    // Handle Workout Submission
+    workoutForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const exercise = {
+            name: exerciseName.value,
+            weight: exerciseWeight.value,
+            reps: exerciseReps.value,
+            done: false
+        };
+
+        if (!workouts[selectedDay]) {
+            workouts[selectedDay] = [];
+        }
+        workouts[selectedDay].push(exercise);
+        localStorage.setItem("workouts", JSON.stringify(workouts));
+        loadWorkoutList();
+        workoutForm.reset();
+    });
+
+    // Load workouts from storage
+    function loadWorkoutList() {
+        workoutList.innerHTML = "";
+        if (workouts[selectedDay]) {
+            workouts[selectedDay].forEach((workout, index) => {
+                let li = document.createElement("li");
+                li.innerHTML = `
+                    ${workout.name} - ${workout.weight}kg x ${workout.reps} reps 
+                    <input type="checkbox" ${workout.done ? "checked" : ""} data-index="${index}">
+                `;
+                workoutList.appendChild(li);
+            });
+
+            // Mark as done
+            document.querySelectorAll("#workout-list input").forEach(input => {
+                input.addEventListener("change", (e) => {
+                    let index = e.target.getAttribute("data-index");
+                    workouts[selectedDay][index].done = e.target.checked;
+                    localStorage.setItem("workouts", JSON.stringify(workouts));
+                });
+            });
+        }
+    }
+
+    // Reset workouts every week
+    function resetWeeklyWorkouts() {
+        let lastReset = localStorage.getItem("lastReset");
+        let now = new Date().getTime();
+        let oneWeek = 7 * 24 * 60 * 60 * 1000;
+
+        if (!lastReset || now - lastReset > oneWeek) {
+            localStorage.setItem("workouts", JSON.stringify({}));
+            localStorage.setItem("lastReset", now);
+        }
+    }
+    resetWeeklyWorkouts();
 });
-
-// Get current week number function
-Date.prototype.getWeek = function () {
-    let d = new Date(this.getFullYear(), 0, 1);
-    return Math.ceil((((this - d) / 86400000) + d.getDay() + 1) / 7);
-};
