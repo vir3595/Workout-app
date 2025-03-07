@@ -7,19 +7,21 @@ body {
     padding: 0;
 }
 
+/* Hide elements until needed */
+.hidden {
+    display: none;
+}
+
 /* Center welcome screen vertically */
 #welcome-screen {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Full screen height */
+    height: 100vh;
 }
 
-h1, h2 {
-    color: #0f0;
-}
-
+/* Buttons */
 button {
     background: #0f0;
     color: #111;
@@ -29,20 +31,19 @@ button {
     font-size: 16px;
     border-radius: 5px;
     margin: 5px;
-    width: 200px;
 }
 
 button:hover {
     background: #0c0;
 }
 
-/* Align weekday buttons to the left */
+/* Weekday buttons in a vertical list */
 #days-container {
     display: flex;
-    flex-direction: column; /* Stack buttons vertically */
+    flex-direction: column;
     align-items: flex-start;
-    margin-left: 20px;
-    width: 300px;
+    margin: auto;
+    width: 50%;
 }
 
 .day-btn {
@@ -52,22 +53,7 @@ button:hover {
     font-size: 18px;
 }
 
-#workout-form {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-input {
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    background: #222;
-    color: white;
-}
-
+/* Workout list */
 ul {
     list-style-type: none;
     padding: 0;
@@ -81,4 +67,13 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+input {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background: #222;
+    color: white;
 }
