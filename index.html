@@ -11,32 +11,37 @@
     <!-- Welcome Screen -->
     <div id="welcome-screen">
         <h1>🔥 Let's Crush Your Workout! 🔥</h1>
-        <p>“The only bad workout is the one that didn’t happen.”</p>
+        <p id="quote"></p>
         <button id="start-btn">Start Planning</button>
     </div>
 
-    <!-- Workout Planner -->
-    <div id="workout-planner" class="hidden">
-        <h2>Weekly Workout Plan</h2>
+    <!-- Weekly Planner -->
+    <div id="weekly-planner" class="hidden">
+        <h2>Select Your Workout Day</h2>
+        <div id="days-container">
+            <button class="day-btn" data-day="Monday">Monday</button>
+            <button class="day-btn" data-day="Tuesday">Tuesday</button>
+            <button class="day-btn" data-day="Wednesday">Wednesday</button>
+            <button class="day-btn" data-day="Thursday">Thursday</button>
+            <button class="day-btn" data-day="Friday">Friday</button>
+            <button class="day-btn" data-day="Saturday">Saturday</button>
+            <button class="day-btn" data-day="Sunday">Sunday</button>
+        </div>
+    </div>
+
+    <!-- Day's Workout Plan -->
+    <div id="workout-day" class="hidden">
+        <button id="back-btn">⬅ Back</button>
+        <h2 id="workout-day-title"></h2>
+        <ul id="workout-list"></ul>
         <div id="workout-form">
-            <select id="day">
-                <option value="Monday">Monday</option>
-                <option value="Tuesday">Tuesday</option>
-                <option value="Wednesday">Wednesday</option>
-                <option value="Thursday">Thursday</option>
-                <option value="Friday">Friday</option>
-                <option value="Saturday">Saturday</option>
-                <option value="Sunday">Sunday</option>
-            </select>
-            <input type="text" id="exercise" placeholder="Exercise (e.g., Bench Press)">
+            <input type="text" id="exercise" placeholder="Exercise">
             <input type="number" id="weight" placeholder="Weight (kg)">
             <input type="number" id="reps" placeholder="Reps">
             <button id="add-workout">Add</button>
         </div>
-        <ul id="workout-list"></ul>
     </div>
 
     <script src="script.js"></script>
 </body>
 </html>
-
