@@ -3,43 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout Planner</title>
+    <title>My Workout Planner</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Welcome Screen -->
-    <div id="welcome-screen">
-        <h1>Welcome to Your Workout Planner</h1>
-        <p id="quote">Loading motivational quote...</p>
-        <button id="start-btn">Start Planning</button>
+    <div class="welcome-screen">
+        <h1>🔥 Get Ready to Crush It! 💪</h1>
+        <p id="quote"></p>
+        <button id="startBtn">Start Planning 🚀</button>
     </div>
 
-    <!-- Weekly Workout Plan -->
-    <div id="week-plan" class="hidden">
-        <h2>Select Your Workout Day</h2>
-        <div id="days-container">
-            <button class="day-btn" data-day="Monday">Monday</button>
-            <button class="day-btn" data-day="Tuesday">Tuesday</button>
-            <button class="day-btn" data-day="Wednesday">Wednesday</button>
-            <button class="day-btn" data-day="Thursday">Thursday</button>
-            <button class="day-btn" data-day="Friday">Friday</button>
-            <button class="day-btn" data-day="Saturday">Saturday</button>
-            <button class="day-btn" data-day="Sunday">Sunday</button>
-        </div>
+    <div id="weekView" class="hidden">
+        <h2>Select Your Workout Day 🏋️‍♂️</h2>
+        <ul class="weekday-list">
+            <li><button class="day-btn" onclick="openDay('monday')">Monday</button></li>
+            <li><button class="day-btn" onclick="openDay('tuesday')">Tuesday</button></li>
+            <li><button class="day-btn" onclick="openDay('wednesday')">Wednesday</button></li>
+            <li><button class="day-btn" onclick="openDay('thursday')">Thursday</button></li>
+            <li><button class="day-btn" onclick="openDay('friday')">Friday</button></li>
+            <li><button class="day-btn" onclick="openDay('saturday')">Saturday</button></li>
+            <li><button class="day-btn" onclick="openDay('sunday')">Sunday</button></li>
+        </ul>
     </div>
 
-    <!-- Daily Workout Planner -->
-    <div id="workout-planner" class="hidden">
-        <h2 id="day-title"></h2>
-        <button id="back-btn">← Back</button>
-        <form id="workout-form">
-            <input type="text" id="exercise-name" placeholder="Exercise Name" required>
-            <input type="number" id="exercise-weight" placeholder="Weight (kg)" required>
-            <input type="number" id="exercise-reps" placeholder="Reps" required>
-            <button type="submit">Add Exercise</button>
-        </form>
+    <div id="dayView" class="hidden">
+        <button id="backBtn">⬅️ Back</button>
+        <h2 id="dayTitle"></h2>
         <ul id="workout-list"></ul>
+        <button id="saveWorkout">✅ Save Progress</button>
     </div>
 
     <script src="script.js"></script>
