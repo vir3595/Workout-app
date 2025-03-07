@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout Tracker</title>
+    <title>Workout Planner</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <!-- Welcome Screen -->
     <div id="welcome-screen">
-        <h1>🔥 Let's Crush Your Workout! 🔥</h1>
-        <p id="quote"></p>
+        <h1>Welcome to Your Workout Planner</h1>
+        <p id="quote">Loading motivational quote...</p>
         <button id="start-btn">Start Planning</button>
     </div>
 
-    <!-- Weekly Planner -->
-    <div id="weekly-planner" class="hidden">
+    <!-- Weekly Workout Plan -->
+    <div id="week-plan" class="hidden">
         <h2>Select Your Workout Day</h2>
         <div id="days-container">
             <button class="day-btn" data-day="Monday">Monday</button>
@@ -29,17 +29,17 @@
         </div>
     </div>
 
-    <!-- Day's Workout Plan -->
-    <div id="workout-day" class="hidden">
-        <button id="back-btn">⬅ Back</button>
-        <h2 id="workout-day-title"></h2>
+    <!-- Daily Workout Planner -->
+    <div id="workout-planner" class="hidden">
+        <h2 id="day-title"></h2>
+        <button id="back-btn">← Back</button>
+        <form id="workout-form">
+            <input type="text" id="exercise-name" placeholder="Exercise Name" required>
+            <input type="number" id="exercise-weight" placeholder="Weight (kg)" required>
+            <input type="number" id="exercise-reps" placeholder="Reps" required>
+            <button type="submit">Add Exercise</button>
+        </form>
         <ul id="workout-list"></ul>
-        <div id="workout-form">
-            <input type="text" id="exercise" placeholder="Exercise">
-            <input type="number" id="weight" placeholder="Weight (kg)">
-            <input type="number" id="reps" placeholder="Reps">
-            <button id="add-workout">Add</button>
-        </div>
     </div>
 
     <script src="script.js"></script>
