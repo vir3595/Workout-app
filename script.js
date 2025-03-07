@@ -1,106 +1,69 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const welcomeScreen = document.getElementById("welcome-screen");
-    const weekPlan = document.getElementById("week-plan");
-    const workoutPlanner = document.getElementById("workout-planner");
-    const dayTitle = document.getElementById("day-title");
-    const backBtn = document.getElementById("back-btn");
-    const startBtn = document.getElementById("start-btn");
+// Motivational Quotes
+const quotes = [
+    "Push harder than yesterday if you want a different tomorrow! 🔥",
+    "Sweat, smile, repeat! 😊",
+    "Stronger every day! 💪",
+    "No pain, no gain! 🚀",
+    "The hardest lift is lifting yourself up! 🙌"
+];
 
-    const workoutForm = document.getElementById("workout-form");
-    const exerciseName = document.getElementById("exercise-name");
-    const exerciseWeight = document.getElementById("exercise-weight");
-    const exerciseReps = document.getElementById("exercise-reps");
+// Show a random quote on load
+document.getElementById("quote").innerText = quotes[Math.floor(Math.random() * quotes.length)];
+
+// Event Listener for Start Button
+document.getElementById("startBtn").addEventListener("click", () => {
+    document.querySelector(".welcome-screen").classList.add("hidden");
+    document.getElementById("weekView").classList.remove("hidden");
+});
+
+// Open specific day
+function openDay(day) {
+    document.getElementById("weekView").classList.add("hidden");
+    document.getElementById("dayView").classList.remove("hidden");
+    document.getElementById("dayTitle").innerText = `Workout Plan for ${day.charAt(0).toUpperCase() + day.slice(1)}`;
+
+    loadWorkout(day);
+}
+
+// Back Button
+document.getElementById("backBtn").addEventListener("click", () => {
+    document.getElementById("dayView").classList.add("hidden");
+    document.getElementById("weekView").classList.remove("hidden");
+});
+
+// Load and Save Workout Data
+function loadWorkout(day) {
     const workoutList = document.getElementById("workout-list");
+    workoutList.innerHTML = "";
 
-    let selectedDay = "";
-    let workouts = JSON.parse(localStorage.getItem("workouts")) || {};
-
-    // Load a new motivational quote on refresh
-    const quotes = [
-        "Push yourself, because no one else is going to do it for you!",
-        "Success starts with self-discipline.",
-        "The pain you feel today will be the strength you feel tomorrow.",
-        "No excuses, just results!",
-        "Train insane or remain the same!"
+    let workouts = JSON.parse(localStorage.getItem(day)) || [
+        { name: "Bench Press", sets: 3, reps: 10, weight: 50, done: false },
+        { name: "Squats", sets: 3, reps: 15, weight: 60, done: false },
+        { name: "Deadlifts", sets: 3, reps: 8, weight: 80, done: false }
     ];
-    document.getElementById("quote").innerText = quotes[Math.floor(Math.random() * quotes.length)];
 
-    // Start Planning Button
-    startBtn.addEventListener("click", () => {
-        welcomeScreen.classList.add("hidden");
-        weekPlan.classList.remove("hidden");
+    workouts.forEach((exercise, index) => {
+        let li = document.createElement("li");
+        li.innerHTML = `
+            ${exercise.name} - 
+            ${exercise.sets} sets of ${exercise.reps} reps 
+            @ ${exercise.weight}kg 
+            <input type="checkbox" ${exercise.done ? "checked" : ""} onchange="toggleDone('${day}', ${index})">
+        `;
+        workoutList.appendChild(li);
     });
 
-    // Handle Day Selection
-    document.querySelectorAll(".day-btn").forEach(button => {
-        button.addEventListener("click", () => {
-            selectedDay = button.getAttribute("data-day");
-            dayTitle.innerText = `${selectedDay} Workout Plan`;
-            loadWorkoutList();
-            weekPlan.classList.add("hidden");
-            workoutPlanner.classList.remove("hidden");
-        });
-    });
+    localStorage.setItem(day, JSON.stringify(workouts));
+}
 
-    // Handle Back Button
-    backBtn.addEventListener("click", () => {
-        workoutPlanner.classList.add("hidden");
-        weekPlan.classList.remove("hidden");
-    });
+// Toggle Completion
+function toggleDone(day, index) {
+    let workouts = JSON.parse(localStorage.getItem(day));
+    workouts[index].done = !workouts[index].done;
+    localStorage.setItem(day, JSON.stringify(workouts));
+}
 
-    // Handle Workout Submission
-    workoutForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const exercise = {
-            name: exerciseName.value,
-            weight: exerciseWeight.value,
-            reps: exerciseReps.value,
-            done: false
-        };
-
-        if (!workouts[selectedDay]) {
-            workouts[selectedDay] = [];
-        }
-        workouts[selectedDay].push(exercise);
-        localStorage.setItem("workouts", JSON.stringify(workouts));
-        loadWorkoutList();
-        workoutForm.reset();
-    });
-
-    // Load workouts from storage
-    function loadWorkoutList() {
-        workoutList.innerHTML = "";
-        if (workouts[selectedDay]) {
-            workouts[selectedDay].forEach((workout, index) => {
-                let li = document.createElement("li");
-                li.innerHTML = `
-                    ${workout.name} - ${workout.weight}kg x ${workout.reps} reps 
-                    <input type="checkbox" ${workout.done ? "checked" : ""} data-index="${index}">
-                `;
-                workoutList.appendChild(li);
-            });
-
-            // Mark as done
-            document.querySelectorAll("#workout-list input").forEach(input => {
-                input.addEventListener("change", (e) => {
-                    let index = e.target.getAttribute("data-index");
-                    workouts[selectedDay][index].done = e.target.checked;
-                    localStorage.setItem("workouts", JSON.stringify(workouts));
-                });
-            });
-        }
-    }
-
-    // Reset workouts every week
-    function resetWeeklyWorkouts() {
-        let lastReset = localStorage.getItem("lastReset");
-        let now = new Date().getTime();
-        let oneWeek = 7 * 24 * 60 * 60 * 1000;
-
-        if (!lastReset || now - lastReset > oneWeek) {
-            localStorage.setItem("workouts", JSON.stringify({}));
-            localStorage.setItem("lastReset", now);
-        }
-    }
-    resetWeeklyWorkouts();
+// Save Button
+document.getElementById("saveWorkout").addEventListener("click", () => {
+    alert("Workout Saved! ✅");
 });
