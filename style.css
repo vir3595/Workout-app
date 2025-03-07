@@ -46,9 +46,9 @@ button:hover {
     background-color: #DFDDCS;
 }
 
-#workout-list li {
-    background: white;
-    margin: 10px;
-    padding: 10px;
+.add-exercise input {
+    margin: 5px;
+    padding: 8px;
     border-radius: 5px;
+    border: 1px solid #ccc;
 }
