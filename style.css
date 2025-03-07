@@ -1,79 +1,54 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #111;
-    color: #0f0;
+    background-color: #F7F6E7;
+    color: #42564F;
     margin: 0;
     padding: 0;
 }
 
-/* Hide elements until needed */
-.hidden {
-    display: none;
-}
-
-/* Center welcome screen vertically */
-#welcome-screen {
+.welcome-screen {
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
-/* Buttons */
 button {
-    background: #0f0;
-    color: #111;
-    padding: 10px 20px;
+    background-color: #C0EB6A;
     border: none;
+    padding: 12px 20px;
+    margin: 10px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
-    border-radius: 5px;
-    margin: 5px;
 }
 
 button:hover {
-    background: #0c0;
+    background-color: #AADD55;
 }
 
-/* Weekday buttons in a vertical list */
-#days-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin: auto;
-    width: 50%;
+.hidden {
+    display: none;
+}
+
+.weekday-list {
+    text-align: left;
+    display: inline-block;
 }
 
 .day-btn {
+    display: block;
+    width: 200px;
     text-align: left;
-    width: 100%;
-    padding: 15px;
-    font-size: 18px;
+    margin-bottom: 10px;
+    background-color: #DFDDCS;
 }
 
-/* Workout list */
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    background: #222;
-    padding: 10px;
+#workout-list li {
+    background: white;
     margin: 10px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-input {
     padding: 10px;
-    font-size: 16px;
-    border: none;
     border-radius: 5px;
-    background: #222;
-    color: white;
 }
