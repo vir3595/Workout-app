@@ -3,33 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Workout Plan</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Workout App</title>
-    
-    <!-- Link CSS -->
+    <title>Workout Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Welcome to My Workout Plan</h1>
 
-    <button onclick="showMessage()">Click me</button>
-    <p id="message"></p>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen">
+        <h1>🔥 Let's Crush Your Workout! 🔥</h1>
+        <p>“The only bad workout is the one that didn’t happen.”</p>
+        <button id="start-btn">Start Planning</button>
+    </div>
 
-    <!-- Link JavaScript -->
+    <!-- Workout Planner -->
+    <div id="workout-planner" class="hidden">
+        <h2>Weekly Workout Plan</h2>
+        <div id="workout-form">
+            <select id="day">
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+            </select>
+            <input type="text" id="exercise" placeholder="Exercise (e.g., Bench Press)">
+            <input type="number" id="weight" placeholder="Weight (kg)">
+            <input type="number" id="reps" placeholder="Reps">
+            <button id="add-workout">Add</button>
+        </div>
+        <ul id="workout-list"></ul>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
-<body>
-    <h1>Workout Plan</h1>
-    <ul id="workout-list"></ul>
-    
-    <script src="script.js"></script>
-</body>
-</html>
+
