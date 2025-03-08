@@ -7,61 +7,48 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <!-- Welcome Page -->
-    <div id="welcome-page">
-        <h1>Welcome to Workout Planner</h1>
+    <div id="welcome">
+        <h1>Welcome to Your Workout Planner</h1>
         <button id="start-planning">Start Planning</button>
     </div>
 
-    <!-- Main Menu -->
     <div id="main-menu" class="hidden">
-        <h2>Select Your Weekday</h2>
-        <div id="weekday-buttons">
-            <button class="weekday" data-day="Monday">Monday</button>
-            <button class="weekday" data-day="Tuesday">Tuesday</button>
-            <button class="weekday" data-day="Wednesday">Wednesday</button>
-            <button class="weekday" data-day="Thursday">Thursday</button>
-            <button class="weekday" data-day="Friday">Friday</button>
-            <button class="weekday" data-day="Saturday">Saturday</button>
-            <button class="weekday" data-day="Sunday">Sunday</button>
+        <h2>Plan Your Workout</h2>
+        <button id="weekly-progress">View Weekly Progress</button>
+        <div id="weekdays">
+            <button class="day" data-day="Monday">Monday</button>
+            <button class="day" data-day="Tuesday">Tuesday</button>
+            <button class="day" data-day="Wednesday">Wednesday</button>
+            <button class="day" data-day="Thursday">Thursday</button>
+            <button class="day" data-day="Friday">Friday</button>
+            <button class="day" data-day="Saturday">Saturday</button>
+            <button class="day" data-day="Sunday">Sunday</button>
         </div>
-        <button id="weekly-progress">Weekly Progress</button>
     </div>
 
-    <!-- Exercise Page -->
     <div id="exercise-page" class="hidden">
-        <h2 id="selected-day"></h2>
-        
-        <!-- Muscle Group Selection -->
-        <label for="muscle-group">Select Muscle Group:</label>
+        <h2>Plan Exercises for <span id="selected-day"></span></h2>
         <select id="muscle-group">
-            <option value="Chest">Chest</option>
-            <option value="Back">Back</option>
-            <option value="Legs">Legs</option>
-            <option value="Shoulders">Shoulders</option>
-            <option value="Arms">Arms</option>
+            <option value="">Select Muscle Group</option>
+            <option value="chest">Chest</option>
+            <option value="legs">Legs</option>
+            <option value="back">Back</option>
+            <option value="shoulders">Shoulders</option>
+            <option value="arms">Arms</option>
         </select>
-
-        <!-- Exercise Input -->
-        <input type="text" id="exercise-input" placeholder="Enter exercise">
+        <input type="text" id="exercise-name" placeholder="Enter Exercise">
         <button id="add-exercise">Add Exercise</button>
-        
-        <!-- Exercise List -->
         <ul id="exercise-list"></ul>
-        
-        <!-- Buttons -->
         <button id="save-workout">Save Workout</button>
-        <button id="back-button" class="back-button">Back</button>
+        <button id="back" class="bottom-left fixed-bottom">Back</button>
     </div>
 
-    <!-- Weekly Progress Page -->
     <div id="progress-page" class="hidden">
         <h2>Weekly Progress</h2>
         <ul id="progress-list"></ul>
-        <button id="back-to-main" class="back-button">Back</button>
+        <button id="back-to-main">Back</button>
     </div>
-
+    
     <script src="script.js"></script>
 </body>
 </html>
