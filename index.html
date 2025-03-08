@@ -3,54 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout Planner</title>
+    <title>My Workout Plan</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Welcome Screen -->
-    <div class="welcome-screen">
-        <h1>🔥 Get Ready to Train! 💪</h1>
-        <p id="quote"></p>
-        <button id="startBtn">Start Planning 🚀</button>
+    <div id="welcome-screen">
+        <h1>🏋️‍♂️ Welcome to Your Workout Planner</h1>
+        <p id="motivational-quote"></p>
+        <button id="start-planning">Start Planning</button>
     </div>
 
-    <!-- Weekly Planner -->
-    <div id="weekView" class="hidden">
-        <h2>Select Your Workout Day 🏋️‍♂️</h2>
-        <ul class="weekday-list">
-            <li><button class="day-btn" onclick="openDay('monday')">Monday</button></li>
-            <li><button class="day-btn" onclick="openDay('tuesday')">Tuesday</button></li>
-            <li><button class="day-btn" onclick="openDay('wednesday')">Wednesday</button></li>
-            <li><button class="day-btn" onclick="openDay('thursday')">Thursday</button></li>
-            <li><button class="day-btn" onclick="openDay('friday')">Friday</button></li>
-            <li><button class="day-btn" onclick="openDay('saturday')">Saturday</button></li>
-            <li><button class="day-btn" onclick="openDay('sunday')">Sunday</button></li>
-        </ul>
-        <button id="historyBtn">📊 View Progress</button>
+    <!-- Weekly Workout Menu -->
+    <div id="weekly-menu" class="hidden">
+        <h2>Select Your Workout Day</h2>
+        <div class="menu-container">
+            <div class="weekday-list">
+                <button class="weekday" data-day="Monday">Monday</button>
+                <button class="weekday" data-day="Tuesday">Tuesday</button>
+                <button class="weekday" data-day="Wednesday">Wednesday</button>
+                <button class="weekday" data-day="Thursday">Thursday</button>
+                <button class="weekday" data-day="Friday">Friday</button>
+                <button class="weekday" data-day="Saturday">Saturday</button>
+                <button class="weekday" data-day="Sunday">Sunday</button>
+            </div>
+            <button id="progress-button">📊 View Weekly Progress</button>
+        </div>
     </div>
 
-    <!-- Daily Workout Page -->
-    <div id="dayView" class="hidden">
-        <button id="backBtn">⬅️</button>
-        <h2 id="dayTitle"></h2>
-        <ul id="workout-list"></ul>
-
-        <div class="add-exercise">
-            <input type="text" id="exerciseName" placeholder="Exercise">
+    <!-- Workout Planner (for each day) -->
+    <div id="workout-planner" class="hidden">
+        <h2 id="selected-day"></h2>
+        <div class="exercise-input">
+            <input type="text" id="exercise-name" placeholder="Exercise">
             <input type="number" id="sets" placeholder="Sets">
             <input type="number" id="reps" placeholder="Reps">
             <input type="number" id="weight" placeholder="Weight (kg)">
-            <button onclick="addExercise()">➕ Add</button>
+            <button id="add-exercise">➕ Add</button>
         </div>
-
-        <button id="saveWorkout">✅ Save</button>
+        <table id="workout-table">
+            <thead>
+                <tr>
+                    <th>Exercise</th>
+                    <th>Sets</th>
+                    <th>Reps</th>
+                    <th>Weight</th>
+                    <th>Done</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button id="back-to-menu">⬅️</button>
     </div>
 
-    <!-- History Page -->
-    <div id="historyView" class="hidden">
-        <button id="historyBack">⬅️</button>
-        <h2>📅 Week-wise Progress</h2>
-        <ul id="history-list"></ul>
+    <!-- Weekly Progress Page -->
+    <div id="weekly-progress" class="hidden">
+        <h2>📊 Your Workout History</h2>
+        <div id="progress-container"></div>
+        <button id="back-to-main">⬅️</button>
     </div>
 
     <script src="script.js"></script>
