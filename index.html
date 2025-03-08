@@ -3,52 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout Planner</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>My Workout Plan</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="welcome">
+    <div id="welcome-screen">
         <h1>Welcome to Your Workout Planner</h1>
-        <button id="start-planning">Start Planning</button>
+        <p id="motivational-quote"></p>
+        <button onclick="startWorkout()">Start Planning</button>
     </div>
 
-    <div id="main-menu" class="hidden">
-        <h2>Plan Your Workout</h2>
-        <button id="weekly-progress">View Weekly Progress</button>
-        <div id="weekdays">
-            <button class="day" data-day="Monday">Monday</button>
-            <button class="day" data-day="Tuesday">Tuesday</button>
-            <button class="day" data-day="Wednesday">Wednesday</button>
-            <button class="day" data-day="Thursday">Thursday</button>
-            <button class="day" data-day="Friday">Friday</button>
-            <button class="day" data-day="Saturday">Saturday</button>
-            <button class="day" data-day="Sunday">Sunday</button>
+    <div id="weekly-menu" class="hidden">
+        <h2>Select Your Workout Day</h2>
+        <div class="menu-container">
+            <div class="weekday-list">
+                <button class="weekday" onclick="openWorkout('Monday')">Monday</button>
+                <button class="weekday" onclick="openWorkout('Tuesday')">Tuesday</button>
+                <button class="weekday" onclick="openWorkout('Wednesday')">Wednesday</button>
+                <button class="weekday" onclick="openWorkout('Thursday')">Thursday</button>
+                <button class="weekday" onclick="openWorkout('Friday')">Friday</button>
+                <button class="weekday" onclick="openWorkout('Saturday')">Saturday</button>
+                <button class="weekday" onclick="openWorkout('Sunday')">Sunday</button>
+            </div>
+            <button id="progress-button" onclick="viewProgress()">📊 View Weekly Progress</button>
         </div>
     </div>
 
-    <div id="exercise-page" class="hidden">
-        <h2>Plan Exercises for <span id="selected-day"></span></h2>
-        <select id="muscle-group">
-            <option value="">Select Muscle Group</option>
-            <option value="chest">Chest</option>
-            <option value="legs">Legs</option>
-            <option value="back">Back</option>
-            <option value="shoulders">Shoulders</option>
-            <option value="arms">Arms</option>
-        </select>
-        <input type="text" id="exercise-name" placeholder="Enter Exercise">
-        <button id="add-exercise">Add Exercise</button>
-        <ul id="exercise-list"></ul>
-        <button id="save-workout">Save Workout</button>
-        <button id="back" class="bottom-left fixed-bottom">Back</button>
+    <div id="workout-planner" class="hidden">
+        <h2 id="workout-day-title"></h2>
+        <div class="exercise-input">
+            <input type="text" id="exercise-name" placeholder="Exercise Name">
+            <input type="number" id="exercise-sets" placeholder="Sets">
+            <input type="number" id="exercise-reps" placeholder="Reps">
+            <input type="number" id="exercise-weight" placeholder="Weight (kg)">
+            <button onclick="addExercise()">➕ Add Exercise</button>
+        </div>
+        <table id="workout-table">
+            <thead>
+                <tr>
+                    <th>Exercise</th>
+                    <th>Sets</th>
+                    <th>Reps</th>
+                    <th>Weight</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <button id="back-to-menu" onclick="goBack()">⬅️</button>
     </div>
 
-    <div id="progress-page" class="hidden">
+    <div id="weekly-progress" class="hidden">
         <h2>Weekly Progress</h2>
-        <ul id="progress-list"></ul>
-        <button id="back-to-main">Back</button>
+        <div id="progress-container"></div>
+        <button id="back-to-main" onclick="goBackToMenu()">⬅️</button>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
 </html>
