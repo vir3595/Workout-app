@@ -1,141 +1,106 @@
-/* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #F7F6E7;
-    color: #42564F;
-    margin: 0;
-    padding: 0;
+document.addEventListener("DOMContentLoaded", () => {
+    loadQuote();
+    resetWeeklyStatus();
+});
+
+function loadQuote() {
+    const quotes = [
+        "No pain, no gain! 💪",
+        "Push yourself, because no one else will do it for you. 🚀",
+        "Your body achieves what your mind believes. 🏋️",
+        "Excuses don’t burn calories! 🔥"
+    ];
+    document.getElementById("motivational-quote").innerText = quotes[Math.floor(Math.random() * quotes.length)];
 }
 
-/* Welcome Screen */
-#welcome-screen {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: url('gym-background.jpg') no-repeat center center/cover;
-    color: white;
+function startWorkout() {
+    document.getElementById("welcome-screen").classList.add("hidden");
+    document.getElementById("weekly-menu").classList.remove("hidden");
 }
 
-#welcome-screen h1 {
-    font-size: 2em;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    border-radius: 10px;
+function openWorkout(day) {
+    document.getElementById("weekly-menu").classList.add("hidden");
+    document.getElementById("workout-planner").classList.remove("hidden");
+    document.getElementById("workout-day-title").innerText = `Workout Plan for ${day}`;
+    loadExercises(day);
 }
 
-#motivational-quote {
-    font-style: italic;
-    margin-bottom: 20px;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 10px;
-    border-radius: 10px;
+function goBack() {
+    document.getElementById("workout-planner").classList.add("hidden");
+    document.getElementById("weekly-menu").classList.remove("hidden");
 }
 
-button {
-    background-color: #C0EB6A;
-    border: none;
-    padding: 12px 20px;
-    margin: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: transform 0.2s ease, background 0.2s ease;
+function goBackToMenu() {
+    document.getElementById("weekly-progress").classList.add("hidden");
+    document.getElementById("weekly-menu").classList.remove("hidden");
 }
 
-button:hover {
-    background-color: #A5D655;
-    transform: scale(1.05);
+function addExercise() {
+    const day = document.getElementById("workout-day-title").innerText.replace("Workout Plan for ", "");
+    const name = document.getElementById("exercise-name").value;
+    const sets = document.getElementById("exercise-sets").value;
+    const reps = document.getElementById("exercise-reps").value;
+    const weight = document.getElementById("exercise-weight").value;
+    
+    if (name && sets && reps && weight) {
+        let exercises = JSON.parse(localStorage.getItem(day)) || [];
+        exercises.push({ name, sets, reps, weight, status: "❌" });
+        localStorage.setItem(day, JSON.stringify(exercises));
+        loadExercises(day);
+    }
 }
 
-/* Weekly Menu */
-#weekly-menu {
-    padding: 20px;
+function loadExercises(day) {
+    const tableBody = document.querySelector("#workout-table tbody");
+    tableBody.innerHTML = "";
+    let exercises = JSON.parse(localStorage.getItem(day)) || [];
+    
+    exercises.forEach((exercise, index) => {
+        let row = tableBody.insertRow();
+        row.innerHTML = `
+            <td>${exercise.name}</td>
+            <td>${exercise.sets}</td>
+            <td>${exercise.reps}</td>
+            <td>${exercise.weight} kg</td>
+            <td onclick="toggleStatus('${day}', ${index})">${exercise.status}</td>
+        `;
+    });
 }
 
-.menu-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+function toggleStatus(day, index) {
+    let exercises = JSON.parse(localStorage.getItem(day));
+    exercises[index].status = exercises[index].status === "❌" ? "✅" : "❌";
+    localStorage.setItem(day, JSON.stringify(exercises));
+    loadExercises(day);
 }
 
-.weekday-list {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+function resetWeeklyStatus() {
+    const lastReset = localStorage.getItem("lastReset");
+    const currentWeek = new Date().getWeek();
+    
+    if (lastReset != currentWeek) {
+        ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].forEach(day => {
+            let exercises = JSON.parse(localStorage.getItem(day)) || [];
+            exercises.forEach(ex => ex.status = "❌");
+            localStorage.setItem(day, JSON.stringify(exercises));
+        });
+        localStorage.setItem("lastReset", currentWeek);
+    }
 }
 
-.weekday {
-    width: 200px;
-    text-align: left;
-    background-color: #42564F;
-    color: white;
-    font-size: 16px;
-}
+function viewProgress() {
+    document.getElementById("weekly-menu").classList.add("hidden");
+    document.getElementById("weekly-progress").classList.remove("hidden");
+    let progressContainer = document.getElementById("progress-container");
+    progressContainer.innerHTML = "";
 
-#progress-button {
-    background-color: #DFDDCS;
-    color: #42564F;
-    font-weight: bold;
-}
-
-/* Workout Planner */
-#workout-planner {
-    padding: 20px;
-}
-
-.exercise-input {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-}
-
-.exercise-input input {
-    padding: 10px;
-    border: 1px solid #42564F;
-    border-radius: 5px;
-    width: 120px;
-}
-
-#workout-table {
-    width: 90%;
-    margin: 20px auto;
-    border-collapse: collapse;
-}
-
-#workout-table th, #workout-table td {
-    border: 1px solid #42564F;
-    padding: 10px;
-}
-
-#back-to-menu, #back-to-main {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    background: #42564F;
-    color: white;
-    font-size: 20px;
-    padding: 10px;
-    border-radius: 50%;
-}
-
-/* Progress Page */
-#weekly-progress {
-    padding: 20px;
-}
-
-#progress-container {
-    text-align: left;
-    max-width: 80%;
-    margin: auto;
-    background: #DFDDCS;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-.hidden {
-    display: none;
+    ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"].forEach(day => {
+        let exercises = JSON.parse(localStorage.getItem(day)) || [];
+        if (exercises.length) {
+            progressContainer.innerHTML += `<h3>${day}</h3>`;
+            exercises.forEach(ex => {
+                progressContainer.innerHTML += `<p>${ex.name} - ${ex.sets}x${ex.reps} (${ex.weight} kg) - ${ex.status}</p>`;
+            });
+        }
+    });
 }
