@@ -1,104 +1,50 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const welcomePage = document.getElementById("welcome-page");
-    const mainMenu = document.getElementById("main-menu");
-    const exercisePage = document.getElementById("exercise-page");
-    const progressPage = document.getElementById("progress-page");
+document.getElementById('start-planning').addEventListener('click', function() {
+    document.getElementById('welcome').classList.add('hidden');
+    document.getElementById('main-menu').classList.remove('hidden');
+});
 
-    const startButton = document.getElementById("start-planning");
-    const weekdays = document.querySelectorAll(".weekday");
-    const weeklyProgressButton = document.getElementById("weekly-progress");
-    const backButton = document.getElementById("back-button");
-    const backToMainButton = document.getElementById("back-to-main");
-
-    const selectedDayTitle = document.getElementById("selected-day");
-    const muscleGroupDropdown = document.getElementById("muscle-group");
-    const exerciseInput = document.getElementById("exercise-input");
-    const addExerciseButton = document.getElementById("add-exercise");
-    const saveWorkoutButton = document.getElementById("save-workout");
-    const exerciseList = document.getElementById("exercise-list");
-    const progressList = document.getElementById("progress-list");
-
-    let currentDay = "";
-    let weeklyExercises = JSON.parse(localStorage.getItem("weeklyExercises")) || {};
-
-    // Start Planning → Go to Main Menu
-    startButton.addEventListener("click", function () {
-        welcomePage.classList.add("hidden");
-        mainMenu.classList.remove("hidden");
+document.querySelectorAll('.day').forEach(button => {
+    button.addEventListener('click', function() {
+        document.getElementById('main-menu').classList.add('hidden');
+        document.getElementById('exercise-page').classList.remove('hidden');
+        document.getElementById('selected-day').textContent = this.getAttribute('data-day');
     });
+});
 
-    // Select a weekday and go to exercise input page
-    weekdays.forEach(button => {
-        button.addEventListener("click", function () {
-            currentDay = button.dataset.day;
-            selectedDayTitle.textContent = `${currentDay} - Exercises`;
-            exerciseList.innerHTML = "";
-            
-            // Load previous exercises
-            if (weeklyExercises[currentDay]) {
-                weeklyExercises[currentDay].forEach(exercise => {
-                    addExerciseToList(exercise);
-                });
-            }
+document.getElementById('weekly-progress').addEventListener('click', function() {
+    document.getElementById('main-menu').classList.add('hidden');
+    document.getElementById('progress-page').classList.remove('hidden');
+});
 
-            mainMenu.classList.add("hidden");
-            exercisePage.classList.remove("hidden");
-        });
-    });
+document.getElementById('back').addEventListener('click', function() {
+    document.getElementById('exercise-page').classList.add('hidden');
+    document.getElementById('main-menu').classList.remove('hidden');
+});
 
-    // Add exercise to list
-    addExerciseButton.addEventListener("click", function () {
-        const exercise = `${muscleGroupDropdown.value}: ${exerciseInput.value.trim()}`;
-        if (exercise !== "") {
-            addExerciseToList(exercise);
-            exerciseInput.value = "";
-        }
-    });
+document.getElementById('back-to-main').addEventListener('click', function() {
+    document.getElementById('progress-page').classList.add('hidden');
+    document.getElementById('main-menu').classList.remove('hidden');
+});
 
-    function addExerciseToList(exercise) {
-        const li = document.createElement("li");
-        li.textContent = exercise;
-
-        // Delete Button
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "❌";
-        deleteButton.addEventListener("click", function () {
+document.getElementById('add-exercise').addEventListener('click', function() {
+    const exerciseName = document.getElementById('exercise-name').value.trim();
+    const muscleGroup = document.getElementById('muscle-group').value;
+    if (exerciseName && muscleGroup) {
+        const li = document.createElement('li');
+        li.textContent = `${muscleGroup.toUpperCase()}: ${exerciseName}`;
+        
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = '❌';
+        deleteBtn.onclick = function() {
             li.remove();
-        });
-
-        li.appendChild(deleteButton);
-        exerciseList.appendChild(li);
+        };
+        
+        li.appendChild(deleteBtn);
+        document.getElementById('exercise-list').appendChild(li);
+        document.getElementById('exercise-name').value = '';
     }
+});
 
-    // Save Workout
-    saveWorkoutButton.addEventListener("click", function () {
-        const exercises = Array.from(exerciseList.children).map(li => li.textContent.replace("❌", "").trim());
-        weeklyExercises[currentDay] = exercises;
-        localStorage.setItem("weeklyExercises", JSON.stringify(weeklyExercises));
-        alert("Workout Saved!");
-    });
-
-    // Back to Main Menu
-    backButton.addEventListener("click", function () {
-        exercisePage.classList.add("hidden");
-        mainMenu.classList.remove("hidden");
-    });
-
-    // Open Weekly Progress
-    weeklyProgressButton.addEventListener("click", function () {
-        progressList.innerHTML = "";
-        Object.keys(weeklyExercises).forEach(day => {
-            const li = document.createElement("li");
-            li.textContent = `${day}: ${weeklyExercises[day].length} exercises`;
-            progressList.appendChild(li);
-        });
-        mainMenu.classList.add("hidden");
-        progressPage.classList.remove("hidden");
-    });
-
-    // Back to Main Menu from Progress Page
-    backToMainButton.addEventListener("click", function () {
-        progressPage.classList.add("hidden");
-        mainMenu.classList.remove("hidden");
-    });
+document.getElementById('save-workout').addEventListener('click', function() {
+    alert('Workout saved!'); // Replace this with actual saving logic.
 });
