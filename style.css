@@ -1,64 +1,61 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #42564F;
-    color: #F7F6E7;
+    background-color: #F7F6E7;
+    color: #42564F;
+    margin: 0;
+    padding: 0;
 }
 
-/* Welcome Screen */
-#welcome-screen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100vh;
-    background: url('gym.jpg') no-repeat center center/cover;
+h1, h2 {
+    color: #C0EB6A;
 }
 
-/* Buttons */
 button {
-    background-color: #C0EB6A;
-    color: black;
-    padding: 10px 20px;
+    background-color: #42564F;
+    color: white;
     border: none;
+    padding: 10px;
+    margin: 5px;
     cursor: pointer;
-    font-size: 1.2em;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
 .hidden {
     display: none;
 }
 
-/* Weekday List */
 #weekday-list {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
-    text-align: left;
 }
 
 #weekday-list li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+    margin: 10px 0;
 }
 
 .day-btn {
-    flex: 1;
-    background: #DFDDCS;
+    width: 80%;
+}
+
+#exercise-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#exercise-list li {
+    background: white;
+    margin: 10px;
     padding: 10px;
     border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
 }
 
-.muscle-group {
-    margin-left: 10px;
-    padding: 5px;
-}
-
-/* Back Button */
-#back-btn {
+.back-btn {
     position: fixed;
-    bottom: 10px;
-    left: 10px;
-    background: #F7F6E7;
-    color: black;
-    font-size: 1.5em;
+    bottom: 20px;
+    left: 20px;
+    font-size: 18px;
 }
