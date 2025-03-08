@@ -7,56 +7,49 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Welcome Page -->
     <div id="welcome-screen">
-        <h1>Welcome to Your Workout Planner</h1>
-        <p id="motivational-quote"></p>
-        <button onclick="startWorkout()">Start Planning</button>
+        <h1>🏋️ Welcome to Your Workout Planner!</h1>
+        <p id="quote">Loading motivational quote...</p>
+        <button id="start-planning">Start Planning</button>
     </div>
 
-    <div id="weekly-menu" class="hidden">
+    <!-- Main Menu -->
+    <div id="main-menu" class="hidden">
         <h2>Select Your Workout Day</h2>
-        <div class="menu-container">
-            <div class="weekday-list">
-                <button class="weekday" onclick="openWorkout('Monday')">Monday</button>
-                <button class="weekday" onclick="openWorkout('Tuesday')">Tuesday</button>
-                <button class="weekday" onclick="openWorkout('Wednesday')">Wednesday</button>
-                <button class="weekday" onclick="openWorkout('Thursday')">Thursday</button>
-                <button class="weekday" onclick="openWorkout('Friday')">Friday</button>
-                <button class="weekday" onclick="openWorkout('Saturday')">Saturday</button>
-                <button class="weekday" onclick="openWorkout('Sunday')">Sunday</button>
-            </div>
-            <button id="progress-button" onclick="viewProgress()">📊 View Weekly Progress</button>
-        </div>
+        <button id="weekly-progress">📅 View Weekly Progress</button>
+        <ul id="weekday-list">
+            <li><button class="day-btn" data-day="Monday">Monday</button></li>
+            <li><button class="day-btn" data-day="Tuesday">Tuesday</button></li>
+            <li><button class="day-btn" data-day="Wednesday">Wednesday</button></li>
+            <li><button class="day-btn" data-day="Thursday">Thursday</button></li>
+            <li><button class="day-btn" data-day="Friday">Friday</button></li>
+            <li><button class="day-btn" data-day="Saturday">Saturday</button></li>
+            <li><button class="day-btn" data-day="Sunday">Sunday</button></li>
+        </ul>
+        <button id="back-main" class="back-btn">⬅️</button>
     </div>
 
-    <div id="workout-planner" class="hidden">
+    <!-- Workout Plan Page -->
+    <div id="workout-page" class="hidden">
         <h2 id="workout-day-title"></h2>
-        <div class="exercise-input">
-            <input type="text" id="exercise-name" placeholder="Exercise Name">
+        <div>
+            <input type="text" id="exercise-name" placeholder="Exercise">
             <input type="number" id="exercise-sets" placeholder="Sets">
             <input type="number" id="exercise-reps" placeholder="Reps">
             <input type="number" id="exercise-weight" placeholder="Weight (kg)">
-            <button onclick="addExercise()">➕ Add Exercise</button>
+            <button id="add-exercise">➕ Add</button>
         </div>
-        <table id="workout-table">
-            <thead>
-                <tr>
-                    <th>Exercise</th>
-                    <th>Sets</th>
-                    <th>Reps</th>
-                    <th>Weight</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-        <button id="back-to-menu" onclick="goBack()">⬅️</button>
+        <ul id="exercise-list"></ul>
+        <button id="save-workout">💾 Save Workout</button>
+        <button id="back-week" class="back-btn">⬅️</button>
     </div>
 
-    <div id="weekly-progress" class="hidden">
-        <h2>Weekly Progress</h2>
-        <div id="progress-container"></div>
-        <button id="back-to-main" onclick="goBackToMenu()">⬅️</button>
+    <!-- Weekly Progress Page -->
+    <div id="progress-page" class="hidden">
+        <h2>📊 Weekly Progress</h2>
+        <ul id="progress-list"></ul>
+        <button id="back-progress" class="back-btn">⬅️</button>
     </div>
 
     <script src="script.js"></script>
