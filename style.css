@@ -1,61 +1,57 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #F7F6E7;
-    color: #42564F;
+    background-color: #42564F;
+    color: #F7F6E7;
     margin: 0;
     padding: 0;
 }
 
-h1, h2 {
-    color: #C0EB6A;
-}
-
-button {
-    background-color: #42564F;
-    color: white;
-    border: none;
-    padding: 10px;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
+/* Screens */
+.screen {
+    display: none;
+    padding: 20px;
 }
 
 .hidden {
     display: none;
 }
 
-#weekday-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-#weekday-list li {
-    margin: 10px 0;
-}
-
-.day-btn {
-    width: 80%;
-}
-
-#exercise-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-#exercise-list li {
-    background: white;
-    margin: 10px;
-    padding: 10px;
+/* Buttons */
+button {
+    background-color: #C0EB6A;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
     border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.back-btn {
+button:hover {
+    background-color: #A8D858;
+}
+
+/* Day Buttons */
+.day-btn {
+    display: block;
+    text-align: left;
+    width: 80%;
+    margin: 5px auto;
+}
+
+/* Bottom Menu */
+#bottom-menu {
     position: fixed;
-    bottom: 20px;
-    left: 20px;
-    font-size: 18px;
+    bottom: 0;
+    width: 100%;
+    background-color: #DFDDCS;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+}
+
+#bottom-menu button {
+    background: none;
+    font-size: 20px;
 }
