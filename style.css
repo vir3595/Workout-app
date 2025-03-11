@@ -1,57 +1,114 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #42564F;
-    color: #F7F6E7;
+    background-color: #F7F6E7;
+    color: #42564F;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
-/* Screens */
-.screen {
-    display: none;
-    padding: 20px;
+h1, h2 {
+    color: #C0EB6A;
+}
+
+button {
+    background-color: #42564F;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
 }
 
 .hidden {
     display: none;
 }
 
-/* Buttons */
-button {
-    background-color: #C0EB6A;
-    border: none;
-    padding: 10px 20px;
-    margin: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
+/* General screen layout */
+.screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
 }
 
-button:hover {
-    background-color: #A8D858;
+/* Weekday buttons styling */
+#weekday-list {
+    list-style-type: none;
+    padding: 0;
 }
 
-/* Day Buttons */
+#weekday-list li {
+    margin: 10px 0;
+}
+
 .day-btn {
-    display: block;
-    text-align: left;
     width: 80%;
-    margin: 5px auto;
 }
 
-/* Bottom Menu */
-#bottom-menu {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #DFDDCS;
+#exercise-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#exercise-list li {
+    background: white;
+    margin: 10px;
     padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.back-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    font-size: 18px;
+}
+
+/* Notification styling */
+#notification {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #42564F;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    display: none;
+}
+
+/* Bottom navigation menu */
+#bottom-nav {
     display: flex;
     justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #42564F;
+    padding: 10px 0;
 }
 
-#bottom-menu button {
+.nav-btn {
     background: none;
-    font-size: 20px;
+    color: white;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.nav-btn p {
+    margin-top: 5px;
+    font-size: 12px;
 }
