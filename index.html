@@ -3,53 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout Planner</title>
+    <title>My Workout Plan</title>
     <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
 </head>
 <body>
     <!-- Welcome Screen -->
     <div id="welcome-screen" class="screen">
-        <h1>🔥 Push Your Limits 🔥</h1>
-        <p id="motivational-quote">Loading...</p>
+        <h1>🏋️ Welcome to Your Workout Planner!</h1>
+        <p id="quote">Loading motivational quote...</p>
         <button id="start-planning">Start Planning</button>
     </div>
 
-    <!-- Main Menu -->
+    <!-- Main Menu (Workout Planner) -->
     <div id="main-menu" class="screen hidden">
         <h2>Select Your Workout Day</h2>
-        <div id="weekdays">
-            <button class="day-btn" data-day="Monday">Monday</button>
-            <button class="day-btn" data-day="Tuesday">Tuesday</button>
-            <button class="day-btn" data-day="Wednesday">Wednesday</button>
-            <button class="day-btn" data-day="Thursday">Thursday</button>
-            <button class="day-btn" data-day="Friday">Friday</button>
-            <button class="day-btn" data-day="Saturday">Saturday</button>
-            <button class="day-btn" data-day="Sunday">Sunday</button>
-        </div>
-        <button id="view-progress">📊 View Progress</button>
+        <button id="weekly-progress">📅 View Weekly Progress</button>
+        <ul id="weekday-list">
+            <li><button class="day-btn" data-day="Monday">Monday</button></li>
+            <li><button class="day-btn" data-day="Tuesday">Tuesday</button></li>
+            <li><button class="day-btn" data-day="Wednesday">Wednesday</button></li>
+            <li><button class="day-btn" data-day="Thursday">Thursday</button></li>
+            <li><button class="day-btn" data-day="Friday">Friday</button></li>
+            <li><button class="day-btn" data-day="Saturday">Saturday</button></li>
+            <li><button class="day-btn" data-day="Sunday">Sunday</button></li>
+        </ul>
+        <button id="back-main" class="back-btn">⬅️</button>
     </div>
 
-    <!-- Workout Planner -->
-    <div id="workout-planner" class="screen hidden">
-        <h2 id="selected-day">Workout Plan</h2>
-        <button id="back-to-menu">⬅️</button>
-        <div id="exercise-list"></div>
-        <button id="add-exercise">➕ Add Exercise</button>
+    <!-- Workout Plan Page -->
+    <div id="workout-page" class="screen hidden">
+        <h2 id="workout-day-title"></h2>
+        <div>
+            <input type="text" id="exercise-name" placeholder="Exercise">
+            <input type="number" id="exercise-sets" placeholder="Sets">
+            <input type="number" id="exercise-reps" placeholder="Reps">
+            <input type="number" id="exercise-weight" placeholder="Weight (kg)">
+            <button id="add-exercise">➕ Add</button>
+        </div>
+        <ul id="exercise-list"></ul>
+        <button id="save-workout">💾 Save Workout</button>
+        <button id="back-week" class="back-btn">⬅️</button>
     </div>
 
     <!-- Weekly Progress Page -->
     <div id="progress-page" class="screen hidden">
-        <h2>Weekly Progress</h2>
-        <button id="back-to-menu-progress">⬅️</button>
-        <div id="progress-content"></div>
+        <h2>📊 Weekly Progress</h2>
+        <ul id="progress-list"></ul>
+        <button id="back-progress" class="back-btn">⬅️</button>
     </div>
 
+    <!-- Notification Pop-up -->
+    <div id="notification" class="hidden"></div>
+
     <!-- Bottom Navigation Menu -->
-    <div id="bottom-menu">
-        <button id="home-btn">🏠</button>
-        <button id="planner-btn">📝</button>
-        <button id="progress-btn">📊</button>
+    <div id="bottom-nav" class="bottom-nav">
+        <button id="workout-planner-btn" class="nav-btn">
+            📝
+            <p>Workout</p>
+        </button>
+        <button id="home-btn" class="nav-btn">
+            🏠
+            <p>Home</p>
+        </button>
+        <button id="stats-btn" class="nav-btn">
+            📊
+            <p>Stats</p>
+        </button>
     </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
