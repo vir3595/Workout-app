@@ -3,12 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout Planner</title>
+    <title>Workout App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="workout-planner" class="screen">
+    <div id="welcome-screen">
+        <h1>Welcome to Your Workout Planner</h1>
+        <p id="motivational-quote">"Push yourself because no one else is going to do it for you."</p>
+        <button id="start-button">Let's Go</button>
+    </div>
+
+    <div id="workout-planner" class="screen hidden">
         <h1>Workout Planner</h1>
         <ul id="weekday-list">
             <li><button class="day-btn" data-day="Monday">Monday</button></li>
@@ -21,17 +27,6 @@
         </ul>
     </div>
 
-    <div id="weekday-workout" class="screen hidden">
-        <h1 id="selected-day-title">Workout</h1>
-        <button id="back-to-planner">⬅ Back</button>
-        <input type="text" id="exercise-name" placeholder="Exercise Name">
-        <input type="number" id="exercise-weight" placeholder="Weight (kg)">
-        <input type="number" id="exercise-reps" placeholder="Reps">
-        <input type="number" id="exercise-sets" placeholder="Sets">
-        <button id="add-exercise">Add Exercise</button>
-        <ul id="exercise-list"></ul>
-    </div>
-
     <div id="home" class="screen hidden">
         <h1>Today's Workout</h1>
         <ul id="todays-workout"></ul>
@@ -39,7 +34,7 @@
 
     <div id="stats" class="screen hidden">
         <h1>Workout Statistics</h1>
-        <p>Track your workout progress here.</p>
+        <p>Track your progress here.</p>
     </div>
 
     <div class="bottom-nav">
