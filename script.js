@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const exerciseSets = document.getElementById("exercise-sets");
     const addExerciseBtn = document.getElementById("add-exercise");
     const todaysWorkoutList = document.getElementById("todays-workout");
+    const backToPlanner = document.getElementById("back-to-planner");
 
     let workoutData = JSON.parse(localStorage.getItem("workoutData")) || {};
 
@@ -33,6 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
             this.classList.add("active");
             currentDay = this.getAttribute("data-day");
             document.getElementById("selected-day-title").textContent = `Workout for ${currentDay}`;
+            document.getElementById("workout-planner").classList.add("hidden");
+            document.getElementById("weekday-workout").classList.remove("hidden");
             exerciseList.innerHTML = "";
 
             if (workoutData[currentDay]) {
@@ -44,6 +47,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             }
         });
+    });
+
+    backToPlanner.addEventListener("click", function () {
+        document.getElementById("weekday-workout").classList.add("hidden");
+        document.getElementById("workout-planner").classList.remove("hidden");
     });
 
     addExerciseBtn.addEventListener("click", function () {
@@ -79,18 +87,15 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("workout-planner").classList.remove("hidden");
         document.getElementById("home").classList.add("hidden");
         document.getElementById("stats").classList.add("hidden");
+        document.getElementById("weekday-workout").classList.add("hidden");
     });
 
     document.getElementById("btn-home").addEventListener("click", function () {
-        document.getElementById("workout-planner").classList.add("hidden");
         document.getElementById("home").classList.remove("hidden");
-        document.getElementById("stats").classList.add("hidden");
         updateWorkoutDisplay();
     });
 
     document.getElementById("btn-stats").addEventListener("click", function () {
-        document.getElementById("workout-planner").classList.add("hidden");
-        document.getElementById("home").classList.add("hidden");
         document.getElementById("stats").classList.remove("hidden");
     });
 
