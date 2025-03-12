@@ -22,8 +22,8 @@
             <button class="day-btn" data-day="Sunday">Sun</button>
         </div>
 
+        <h3 id="selectedDayTitle">Select a Day</h3>
         <div id="exerciseForm">
-            <h3 id="selectedDayTitle">Select a Day</h3>
             <input type="text" id="exerciseName" placeholder="Exercise Name">
             <input type="number" id="exerciseWeight" placeholder="Weight (kg)">
             <input type="number" id="exerciseReps" placeholder="Reps">
@@ -31,13 +31,34 @@
             <button id="addExerciseBtn">Add Exercise</button>
         </div>
 
-        <ul id="exerciseList"></ul>
+        <table id="exerciseTable">
+            <thead>
+                <tr>
+                    <th>Exercise</th>
+                    <th>Weight (kg)</th>
+                    <th>Reps</th>
+                    <th>Sets</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody id="exerciseList"></tbody>
+        </table>
     </section>
 
     <!-- Home Page -->
     <section id="homeScreen" class="screen active">
         <h2>Today's Workout</h2>
-        <ul id="todaysWorkout"></ul>
+        <table id="todaysWorkoutTable">
+            <thead>
+                <tr>
+                    <th>Exercise</th>
+                    <th>Weight</th>
+                    <th>Reps</th>
+                    <th>Sets</th>
+                </tr>
+            </thead>
+            <tbody id="todaysWorkout"></tbody>
+        </table>
     </section>
 
     <!-- Stats Page -->
@@ -52,6 +73,9 @@
         <button id="homeBtn" class="nav-btn">🏠</button>
         <button id="statsBtn" class="nav-btn">📊</button>
     </nav>
+
+    <!-- Notification -->
+    <div id="notification" class="hidden">Exercise Added! ✅</div>
 
 </body>
 </html>
