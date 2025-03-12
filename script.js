@@ -75,18 +75,12 @@ document.addEventListener("DOMContentLoaded", function () {
         workoutData[selectedDay].push(newExercise);
         localStorage.setItem("workoutData", JSON.stringify(workoutData));
 
-        exerciseName.value = "";
-        exerciseWeight.value = "";
-        exerciseReps.value = "";
-        exerciseSets.value = "";
         updateWorkoutDisplay();
     });
 
     document.addEventListener("click", function (e) {
         if (e.target.classList.contains("delete-btn")) {
-            const day = selectedDay;
-            const index = e.target.getAttribute("data-index");
-            workoutData[day].splice(index, 1);
+            workoutData[selectedDay].splice(e.target.getAttribute("data-index"), 1);
             localStorage.setItem("workoutData", JSON.stringify(workoutData));
             updateWorkoutDisplay();
         }
