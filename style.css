@@ -7,27 +7,10 @@ body {
     text-align: center;
 }
 
-.top-nav {
-    display: flex;
-    justify-content: space-around;
-    background-color: #42564F;
-    padding: 10px;
-    position: fixed;
-    top: 0;
-    width: 100%;
-}
-
-.top-nav button {
-    background: none;
-    border: none;
-    font-size: 20px;
-    color: #C0EB6A;
-    cursor: pointer;
-}
-
 .screen {
     display: none;
-    margin-top: 60px;
+    margin-top: 40px;
+    padding-bottom: 60px; /* Space for bottom nav */
 }
 
 .screen.active {
@@ -66,6 +49,33 @@ button {
     padding: 10px;
     cursor: pointer;
     border-radius: 5px;
+}
+
+/* Minimalist Floating Bottom Navigation */
+.bottom-nav {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 30px;
+    background: rgba(255, 255, 255, 0.8); /* Subtle transparent effect */
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #42564F; /* Monochrome look */
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.nav-btn:hover {
+    transform: scale(1.1);
 }
 
 ul {
