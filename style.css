@@ -63,12 +63,13 @@ button {
 
 .bottom-nav {
     position: fixed;
-    bottom: 10px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 20px;
+    gap: 30px;
     background: none;
+    z-index: 100;
 }
 
 .bottom-nav button {
