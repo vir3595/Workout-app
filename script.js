@@ -1,65 +1,96 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const screens = {
-        welcome: document.getElementById("welcomeScreen"),
-        home: document.getElementById("homeScreen"),
-        planner: document.getElementById("plannerScreen"),
-        stats: document.getElementById("statsScreen")
-    };
+document.addEventListener("DOMContentLoaded", function () {
+    const plannerBtn = document.getElementById("plannerBtn");
+    const homeBtn = document.getElementById("homeBtn");
+    const statsBtn = document.getElementById("statsBtn");
 
-    const navButtons = {
-        planner: document.getElementById("plannerNav"),
-        home: document.getElementById("homeNav"),
-        stats: document.getElementById("statsNav")
-    };
+    const plannerScreen = document.getElementById("plannerScreen");
+    const homeScreen = document.getElementById("homeScreen");
+    const statsScreen = document.getElementById("statsScreen");
 
-    function showScreen(screenName) {
-        Object.values(screens).forEach(screen => screen.classList.remove("active"));
-        screens[screenName].classList.add("active");
-        localStorage.setItem("currentScreen", screenName);
+    const dayButtons = document.querySelectorAll(".day-btn");
+    const selectedDayTitle = document.getElementById("selectedDayTitle");
+    const exerciseList = document.getElementById("exerciseList");
+    const todaysWorkout = document.getElementById("todaysWorkout");
+
+    const exerciseName = document.getElementById("exerciseName");
+    const exerciseWeight = document.getElementById("exerciseWeight");
+    const exerciseReps = document.getElementById("exerciseReps");
+    const exerciseSets = document.getElementById("exerciseSets");
+    const addExerciseBtn = document.getElementById("addExerciseBtn");
+
+    let selectedDay = null;
+    let workoutData = JSON.parse(localStorage.getItem("workoutData")) || {};
+
+    function updateWorkoutDisplay() {
+        todaysWorkout.innerHTML = "";
+        const today = new Date().toLocaleString("en-us", { weekday: "long" });
+        const todayExercises = workoutData[today] || [];
+
+        todayExercises.forEach((exercise) => {
+            const li = document.createElement("li");
+            li.innerHTML = `${exercise.name} - ${exercise.weight}kg x ${exercise.reps} reps x ${exercise.sets} sets`;
+            todaysWorkout.appendChild(li);
+        });
     }
 
-    const lastScreen = localStorage.getItem("currentScreen") || "welcome";
-    showScreen(lastScreen);
+    function showScreen(screen) {
+        plannerScreen.classList.remove("active");
+        homeScreen.classList.remove("active");
+        statsScreen.classList.remove("active");
+        screen.classList.add("active");
+    }
 
-    document.getElementById("startButton").addEventListener("click", () => {
-        showScreen("home");
-    });
+    plannerBtn.addEventListener("click", () => showScreen(plannerScreen));
+    homeBtn.addEventListener("click", () => showScreen(homeScreen));
+    statsBtn.addEventListener("click", () => showScreen(statsScreen));
 
-    navButtons.planner.addEventListener("click", () => showScreen("planner"));
-    navButtons.home.addEventListener("click", () => showScreen("home"));
-    navButtons.stats.addEventListener("click", () => showScreen("stats"));
+    dayButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+            selectedDay = this.getAttribute("data-day");
+            selectedDayTitle.textContent = `Workout for ${selectedDay}`;
+            exerciseList.innerHTML = "";
 
-    // Workout Planner Logic
-    const workoutData = JSON.parse(localStorage.getItem("workoutData")) || {};
-
-    document.querySelectorAll(".day-btn").forEach(button => {
-        button.addEventListener("click", () => {
-            const day = button.dataset.day;
-            const workout = workoutData[day] || "No workouts added yet!";
-            document.getElementById("dayWorkout").innerHTML = `
-                <h3>${day} Workout</h3>
-                <p>${workout}</p>
-                <input type="text" id="exerciseInput" placeholder="Add Exercise">
-                <button id="saveWorkout">Save</button>
-            `;
-
-            document.getElementById("saveWorkout").addEventListener("click", () => {
-                const newExercise = document.getElementById("exerciseInput").value;
-                if (newExercise.trim() !== "") {
-                    workoutData[day] = newExercise;
-                    localStorage.setItem("workoutData", JSON.stringify(workoutData));
-                    alert("Workout Saved! ✅");
-                    document.getElementById("dayWorkout").innerHTML = `<h3>${day} Workout</h3><p>${newExercise}</p>`;
-                }
-            });
+            if (workoutData[selectedDay]) {
+                workoutData[selectedDay].forEach((exercise, index) => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `${exercise.name} - ${exercise.weight}kg x ${exercise.reps} reps x ${exercise.sets} sets
+                    <button class="delete-btn" data-index="${index}">❌</button>`;
+                    exerciseList.appendChild(li);
+                });
+            }
         });
     });
 
-    function updateTodaysWorkout() {
-        const today = new Date().toLocaleDateString("en-US", { weekday: "long" });
-        const todaysWorkout = workoutData[today] || "No planned workout for today!";
-        document.getElementById("todaysWorkout").innerHTML = `<p>${todaysWorkout}</p>`;
-    }
+    addExerciseBtn.addEventListener("click", function () {
+        if (!selectedDay) return alert("Select a day first!");
+        
+        const newExercise = {
+            name: exerciseName.value,
+            weight: exerciseWeight.value,
+            reps: exerciseReps.value,
+            sets: exerciseSets.value,
+        };
 
-    updateTodaysWorkout();
+        if (!workoutData[selectedDay]) workoutData[selectedDay] = [];
+        workoutData[selectedDay].push(newExercise);
+        localStorage.setItem("workoutData", JSON.stringify(workoutData));
+
+        exerciseName.value = "";
+        exerciseWeight.value = "";
+        exerciseReps.value = "";
+        exerciseSets.value = "";
+        updateWorkoutDisplay();
+    });
+
+    document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("delete-btn")) {
+            const day = selectedDay;
+            const index = e.target.getAttribute("data-index");
+            workoutData[day].splice(index, 1);
+            localStorage.setItem("workoutData", JSON.stringify(workoutData));
+            updateWorkoutDisplay();
+        }
+    });
+
+    updateWorkoutDisplay();
 });
