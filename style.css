@@ -1,109 +1,80 @@
 body {
     font-family: Arial, sans-serif;
+    text-align: center;
     background-color: #F7F6E7;
     color: #42564F;
     margin: 0;
     padding: 0;
-    text-align: center;
 }
 
-.screen {
-    display: none;
-    margin-top: 40px;
-    padding-bottom: 60px;
-}
-
-.screen.active {
-    display: block;
-}
-
-.weekdays {
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    margin-top: 10px;
-}
-
-.day-btn {
-    background-color: #DFDDCS;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-#exerciseForm {
-    margin-top: 20px;
-}
-
-input {
-    display: block;
-    margin: 5px auto;
-    padding: 5px;
-    width: 80%;
+h1, h2 {
+    color: #C0EB6A;
 }
 
 button {
-    background-color: #C0EB6A;
+    background-color: #42564F;
+    color: white;
     border: none;
     padding: 10px;
+    margin: 5px;
     cursor: pointer;
     border-radius: 5px;
-}
-
-.bottom-nav {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 30px;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 10px 20px;
-    border-radius: 50px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.nav-btn {
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #42564F;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.nav-btn:hover {
-    transform: scale(1.1);
-}
-
-table {
-    width: 90%;
-    margin: 10px auto;
-    border-collapse: collapse;
-}
-
-th, td {
-    border: 1px solid #DFDDCS;
-    padding: 8px;
-    text-align: center;
-}
-
-th {
-    background-color: #DFDDCS;
+    font-size: 16px;
 }
 
 .hidden {
     display: none;
 }
 
-#notification {
-    position: fixed;
-    bottom: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: green;
-    color: white;
+#weekday-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#weekday-list li {
+    margin: 10px 0;
+}
+
+.day-btn {
+    width: 80%;
+    background-color: #DFDDCS;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.day-btn.active {
+    background-color: #C0EB6A;
+    color: black;
+    font-weight: bold;
+}
+
+#exercise-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+#exercise-list li {
+    background: white;
+    margin: 10px;
     padding: 10px;
     border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 20px;
+    background: none;
+}
+
+.bottom-nav button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
 }
