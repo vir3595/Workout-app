@@ -3,79 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout App</title>
+    <title>Workout Planner</title>
     <link rel="stylesheet" href="style.css">
-    <script defer src="script.js"></script>
 </head>
 <body>
 
-    <!-- Workout Planner -->
-    <section id="plannerScreen" class="screen">
-        <h2>Workout Planner</h2>
-        <div class="weekdays">
-            <button class="day-btn" data-day="Monday">Mon</button>
-            <button class="day-btn" data-day="Tuesday">Tue</button>
-            <button class="day-btn" data-day="Wednesday">Wed</button>
-            <button class="day-btn" data-day="Thursday">Thu</button>
-            <button class="day-btn" data-day="Friday">Fri</button>
-            <button class="day-btn" data-day="Saturday">Sat</button>
-            <button class="day-btn" data-day="Sunday">Sun</button>
+    <div id="workout-planner" class="screen">
+        <h1>Workout Planner</h1>
+        <ul id="weekday-list">
+            <li><button class="day-btn" data-day="Monday">Monday</button></li>
+            <li><button class="day-btn" data-day="Tuesday">Tuesday</button></li>
+            <li><button class="day-btn" data-day="Wednesday">Wednesday</button></li>
+            <li><button class="day-btn" data-day="Thursday">Thursday</button></li>
+            <li><button class="day-btn" data-day="Friday">Friday</button></li>
+            <li><button class="day-btn" data-day="Saturday">Saturday</button></li>
+            <li><button class="day-btn" data-day="Sunday">Sunday</button></li>
+        </ul>
+        <div id="exercise-container">
+            <h2 id="selected-day-title">Select a Day</h2>
+            <input type="text" id="exercise-name" placeholder="Exercise Name">
+            <input type="number" id="exercise-weight" placeholder="Weight (kg)">
+            <input type="number" id="exercise-reps" placeholder="Reps">
+            <input type="number" id="exercise-sets" placeholder="Sets">
+            <button id="add-exercise">Add Exercise</button>
+            <ul id="exercise-list"></ul>
         </div>
+    </div>
 
-        <h3 id="selectedDayTitle">Select a Day</h3>
-        <div id="exerciseForm">
-            <input type="text" id="exerciseName" placeholder="Exercise Name">
-            <input type="number" id="exerciseWeight" placeholder="Weight (kg)">
-            <input type="number" id="exerciseReps" placeholder="Reps">
-            <input type="number" id="exerciseSets" placeholder="Sets">
-            <button id="addExerciseBtn">Add Exercise</button>
-        </div>
+    <div id="home" class="screen hidden">
+        <h1>Today's Workout</h1>
+        <ul id="todays-workout"></ul>
+    </div>
 
-        <table id="exerciseTable">
-            <thead>
-                <tr>
-                    <th>Exercise</th>
-                    <th>Weight (kg)</th>
-                    <th>Reps</th>
-                    <th>Sets</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody id="exerciseList"></tbody>
-        </table>
-    </section>
+    <div id="stats" class="screen hidden">
+        <h1>Workout Statistics</h1>
+        <p>Track your workout progress here.</p>
+    </div>
 
-    <!-- Home Page -->
-    <section id="homeScreen" class="screen active">
-        <h2>Today's Workout</h2>
-        <table id="todaysWorkoutTable">
-            <thead>
-                <tr>
-                    <th>Exercise</th>
-                    <th>Weight</th>
-                    <th>Reps</th>
-                    <th>Sets</th>
-                </tr>
-            </thead>
-            <tbody id="todaysWorkout"></tbody>
-        </table>
-    </section>
+    <div class="bottom-nav">
+        <button id="btn-planner">🏋️</button>
+        <button id="btn-home">🏠</button>
+        <button id="btn-stats">📊</button>
+    </div>
 
-    <!-- Stats Page -->
-    <section id="statsScreen" class="screen">
-        <h2>Workout Stats</h2>
-        <p>Weekly Summary Coming Soon...</p>
-    </section>
-
-    <!-- Floating Bottom Navigation -->
-    <nav class="bottom-nav">
-        <button id="plannerBtn" class="nav-btn">📅</button>
-        <button id="homeBtn" class="nav-btn">🏠</button>
-        <button id="statsBtn" class="nav-btn">📊</button>
-    </nav>
-
-    <!-- Notification -->
-    <div id="notification" class="hidden">Exercise Added! ✅</div>
-
+    <script src="script.js"></script>
 </body>
 </html>
