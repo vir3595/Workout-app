@@ -7,7 +7,7 @@ body {
     padding: 0;
 }
 
-h1, h2 {
+h1 {
     color: #C0EB6A;
 }
 
@@ -41,24 +41,11 @@ button {
     transition: background-color 0.3s ease-in-out;
 }
 
+/* 🔹 Highlight the selected day */
 .day-btn.active {
     background-color: #C0EB6A;
     color: black;
     font-weight: bold;
-}
-
-#exercise-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-#exercise-list li {
-    background: white;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
 }
 
 .bottom-nav {
