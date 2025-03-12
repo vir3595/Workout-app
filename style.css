@@ -1,50 +1,92 @@
 body {
     font-family: Arial, sans-serif;
-    text-align: center;
     background-color: #F7F6E7;
     color: #42564F;
     margin: 0;
     padding: 0;
+    text-align: center;
 }
 
-/* Hide screens by default */
+.top-nav {
+    display: flex;
+    justify-content: space-around;
+    background-color: #42564F;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.top-nav button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #C0EB6A;
+    cursor: pointer;
+}
+
 .screen {
     display: none;
-    padding: 20px;
+    margin-top: 60px;
 }
 
-/* Show only active screen */
 .screen.active {
     display: block;
 }
 
-/* Bottom navigation styling */
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #C0EB6A;
+.weekdays {
     display: flex;
-    justify-content: space-around;
-    padding: 10px;
-}
-
-.bottom-nav button {
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-/* Day buttons */
-.day-buttons {
-    margin-top: 20px;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
 }
 
 .day-btn {
     background-color: #DFDDCS;
     border: none;
     padding: 10px;
-    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#exerciseForm {
+    margin-top: 20px;
+}
+
+input {
+    display: block;
+    margin: 5px auto;
+    padding: 5px;
+    width: 80%;
+}
+
+button {
+    background-color: #C0EB6A;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: #DFDDCS;
+    margin: 5px auto;
+    padding: 10px;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.delete-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px;
     cursor: pointer;
 }
