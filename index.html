@@ -5,49 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workout App</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <!-- Welcome Screen -->
-    <div id="welcomeScreen" class="screen active">
-        <h1>Welcome to Workout Planner</h1>
-        <p id="motivationalQuote"></p>
-        <button id="startButton">Let's Go</button>
-    </div>
 
-    <!-- Home Screen -->
-    <div id="homeScreen" class="screen">
-        <h2>Today's Workout</h2>
-        <div id="todaysWorkout"></div>
-    </div>
+    <!-- Top Navigation -->
+    <nav class="top-nav">
+        <button id="plannerBtn">📅</button>
+        <button id="homeBtn">🏠</button>
+        <button id="statsBtn">📊</button>
+    </nav>
 
-    <!-- Workout Planner Screen -->
-    <div id="plannerScreen" class="screen">
+    <!-- Workout Planner -->
+    <section id="plannerScreen" class="screen">
         <h2>Workout Planner</h2>
-        <div class="day-buttons">
-            <button class="day-btn" data-day="Monday">Monday</button>
-            <button class="day-btn" data-day="Tuesday">Tuesday</button>
-            <button class="day-btn" data-day="Wednesday">Wednesday</button>
-            <button class="day-btn" data-day="Thursday">Thursday</button>
-            <button class="day-btn" data-day="Friday">Friday</button>
-            <button class="day-btn" data-day="Saturday">Saturday</button>
-            <button class="day-btn" data-day="Sunday">Sunday</button>
+        <div class="weekdays">
+            <button class="day-btn" data-day="Monday">Mon</button>
+            <button class="day-btn" data-day="Tuesday">Tue</button>
+            <button class="day-btn" data-day="Wednesday">Wed</button>
+            <button class="day-btn" data-day="Thursday">Thu</button>
+            <button class="day-btn" data-day="Friday">Fri</button>
+            <button class="day-btn" data-day="Saturday">Sat</button>
+            <button class="day-btn" data-day="Sunday">Sun</button>
         </div>
-        <div id="dayWorkout"></div>
-    </div>
 
-    <!-- Stats Screen -->
-    <div id="statsScreen" class="screen">
-        <h2>Workout Progress</h2>
-        <p>Track your progress here!</p>
-    </div>
+        <div id="exerciseForm">
+            <h3 id="selectedDayTitle">Select a Day</h3>
+            <input type="text" id="exerciseName" placeholder="Exercise Name">
+            <input type="number" id="exerciseWeight" placeholder="Weight (kg)">
+            <input type="number" id="exerciseReps" placeholder="Reps">
+            <input type="number" id="exerciseSets" placeholder="Sets">
+            <button id="addExerciseBtn">Add Exercise</button>
+        </div>
 
-    <!-- Bottom Navigation -->
-    <div class="bottom-nav">
-        <button id="homeNav">🏠</button>
-        <button id="plannerNav">📅</button>
-        <button id="statsNav">📊</button>
-    </div>
+        <ul id="exerciseList"></ul>
+    </section>
 
-    <script src="script.js"></script>
+    <!-- Home Page -->
+    <section id="homeScreen" class="screen active">
+        <h2>Today's Workout</h2>
+        <ul id="todaysWorkout"></ul>
+    </section>
+
+    <!-- Stats Page -->
+    <section id="statsScreen" class="screen">
+        <h2>Workout Stats</h2>
+        <p>Weekly Summary Coming Soon...</p>
+    </section>
+
 </body>
 </html>
