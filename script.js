@@ -1,145 +1,98 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Navigation Buttons
-    const plannerBtn = document.getElementById("plannerBtn");
-    const homeBtn = document.getElementById("homeBtn");
-    const statsBtn = document.getElementById("statsBtn");
+    let currentDay = "";
+    const days = document.querySelectorAll(".day-btn");
+    const exerciseList = document.getElementById("exercise-list");
+    const exerciseName = document.getElementById("exercise-name");
+    const exerciseWeight = document.getElementById("exercise-weight");
+    const exerciseReps = document.getElementById("exercise-reps");
+    const exerciseSets = document.getElementById("exercise-sets");
+    const addExerciseBtn = document.getElementById("add-exercise");
+    const todaysWorkoutList = document.getElementById("todays-workout");
 
-    // Screens
-    const plannerScreen = document.getElementById("plannerScreen");
-    const homeScreen = document.getElementById("homeScreen");
-    const statsScreen = document.getElementById("statsScreen");
-
-    // Workout Planner Elements
-    const dayButtons = document.querySelectorAll(".day-btn");
-    const selectedDayTitle = document.getElementById("selectedDayTitle");
-    const exerciseList = document.getElementById("exerciseList");
-    const todaysWorkout = document.getElementById("todaysWorkout");
-    const notification = document.getElementById("notification");
-
-    // Form Inputs
-    const exerciseName = document.getElementById("exerciseName");
-    const exerciseWeight = document.getElementById("exerciseWeight");
-    const exerciseReps = document.getElementById("exerciseReps");
-    const exerciseSets = document.getElementById("exerciseSets");
-    const addExerciseBtn = document.getElementById("addExerciseBtn");
-
-    let selectedDay = null;
     let workoutData = JSON.parse(localStorage.getItem("workoutData")) || {};
 
-    // Function to switch screens
-    function showScreen(screen) {
-        plannerScreen.classList.remove("active");
-        homeScreen.classList.remove("active");
-        statsScreen.classList.remove("active");
-
-        screen.classList.add("active");
-    }
-
-    plannerBtn.addEventListener("click", () => showScreen(plannerScreen));
-    homeBtn.addEventListener("click", () => showScreen(homeScreen));
-    statsBtn.addEventListener("click", () => showScreen(statsScreen));
-
-    // Function to load exercises for the selected day
-    function loadExercisesForDay(day) {
-        selectedDay = day;
-        selectedDayTitle.textContent = `Workout Plan for ${day}`;
-        exerciseList.innerHTML = "";
-
-        if (workoutData[day]) {
-            workoutData[day].forEach((exercise, index) => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${exercise.name}</td>
-                    <td>${exercise.weight}kg</td>
-                    <td>${exercise.reps}</td>
-                    <td>${exercise.sets}</td>
-                    <td><button class="delete-btn" data-day="${day}" data-index="${index}">❌</button></td>
-                `;
-                exerciseList.appendChild(row);
+    function updateWorkoutDisplay() {
+        todaysWorkoutList.innerHTML = "";
+        if (currentDay && workoutData[currentDay]) {
+            workoutData[currentDay].forEach((exercise) => {
+                const li = document.createElement("li");
+                li.textContent = `${exercise.name} - ${exercise.weight}kg, ${exercise.reps} reps, ${exercise.sets} sets`;
+                todaysWorkoutList.appendChild(li);
             });
         }
     }
 
-    // Click event for weekday buttons
-    dayButtons.forEach((button) => {
-        button.addEventListener("click", function () {
-            loadExercisesForDay(this.dataset.day);
+    function saveWorkout() {
+        localStorage.setItem("workoutData", JSON.stringify(workoutData));
+        updateWorkoutDisplay();
+    }
+
+    days.forEach((day) => {
+        day.addEventListener("click", function () {
+            days.forEach(d => d.classList.remove("active"));
+            this.classList.add("active");
+            currentDay = this.getAttribute("data-day");
+            document.getElementById("selected-day-title").textContent = `Workout for ${currentDay}`;
+            exerciseList.innerHTML = "";
+
+            if (workoutData[currentDay]) {
+                workoutData[currentDay].forEach((exercise, index) => {
+                    const li = document.createElement("li");
+                    li.innerHTML = `${exercise.name} - ${exercise.weight}kg, ${exercise.reps} reps, ${exercise.sets} sets
+                    <button onclick="deleteExercise('${currentDay}', ${index})">❌</button>`;
+                    exerciseList.appendChild(li);
+                });
+            }
         });
     });
 
-    // Function to update Today's Workout screen
-    function updateWorkoutDisplay() {
-        const today = new Date().toLocaleString("en-us", { weekday: "long" });
-        todaysWorkout.innerHTML = "";
-
-        if (workoutData[today]) {
-            workoutData[today].forEach((exercise) => {
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${exercise.name}</td>
-                    <td>${exercise.weight}kg</td>
-                    <td>${exercise.reps}</td>
-                    <td>${exercise.sets}</td>
-                `;
-                todaysWorkout.appendChild(row);
-            });
-        }
-    }
-
-    // Function to show notification
-    function showNotification(message) {
-        notification.textContent = message;
-        notification.classList.remove("hidden");
-        setTimeout(() => notification.classList.add("hidden"), 2000);
-    }
-
-    // Add Exercise Event
     addExerciseBtn.addEventListener("click", function () {
-        if (!selectedDay) return alert("Please select a day first!");
+        if (currentDay && exerciseName.value && exerciseWeight.value && exerciseReps.value && exerciseSets.value) {
+            if (!workoutData[currentDay]) {
+                workoutData[currentDay] = [];
+            }
 
-        const newExercise = {
-            name: exerciseName.value,
-            weight: exerciseWeight.value,
-            reps: exerciseReps.value,
-            sets: exerciseSets.value,
-        };
+            workoutData[currentDay].push({
+                name: exerciseName.value,
+                weight: exerciseWeight.value,
+                reps: exerciseReps.value,
+                sets: exerciseSets.value
+            });
 
-        if (!newExercise.name || !newExercise.weight || !newExercise.reps || !newExercise.sets) {
-            alert("Please fill all fields!");
-            return;
+            saveWorkout();
+            exerciseName.value = "";
+            exerciseWeight.value = "";
+            exerciseReps.value = "";
+            exerciseSets.value = "";
         }
-
-        if (!workoutData[selectedDay]) workoutData[selectedDay] = [];
-        workoutData[selectedDay].push(newExercise);
-        localStorage.setItem("workoutData", JSON.stringify(workoutData));
-
-        showNotification("Exercise Added! ✅");
-
-        loadExercisesForDay(selectedDay);
-        updateWorkoutDisplay();
-
-        // Clear input fields after adding
-        exerciseName.value = "";
-        exerciseWeight.value = "";
-        exerciseReps.value = "";
-        exerciseSets.value = "";
     });
 
-    // Delete Exercise Event
-    exerciseList.addEventListener("click", function (e) {
-        if (e.target.classList.contains("delete-btn")) {
-            const day = e.target.dataset.day;
-            const index = e.target.dataset.index;
+    window.deleteExercise = function (day, index) {
+        if (workoutData[day]) {
             workoutData[day].splice(index, 1);
-            localStorage.setItem("workoutData", JSON.stringify(workoutData));
-
-            showNotification("Exercise Deleted! ❌");
-
-            loadExercisesForDay(day);
-            updateWorkoutDisplay();
+            saveWorkout();
+            document.querySelector(`[data-day='${day}']`).click();
         }
+    };
+
+    document.getElementById("btn-planner").addEventListener("click", function () {
+        document.getElementById("workout-planner").classList.remove("hidden");
+        document.getElementById("home").classList.add("hidden");
+        document.getElementById("stats").classList.add("hidden");
     });
 
-    // Load initial data
-    updateWorkoutDisplay();
+    document.getElementById("btn-home").addEventListener("click", function () {
+        document.getElementById("workout-planner").classList.add("hidden");
+        document.getElementById("home").classList.remove("hidden");
+        document.getElementById("stats").classList.add("hidden");
+        updateWorkoutDisplay();
+    });
+
+    document.getElementById("btn-stats").addEventListener("click", function () {
+        document.getElementById("workout-planner").classList.add("hidden");
+        document.getElementById("home").classList.add("hidden");
+        document.getElementById("stats").classList.remove("hidden");
+    });
+
+    document.getElementById("btn-home").click();
 });
