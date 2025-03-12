@@ -5,110 +5,46 @@ body {
     color: #42564F;
     margin: 0;
     padding: 0;
+}
+
+/* Hide screens by default */
+.screen {
+    display: none;
+    padding: 20px;
+}
+
+/* Show only active screen */
+.screen.active {
+    display: block;
+}
+
+/* Bottom navigation styling */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #C0EB6A;
     display: flex;
-    flex-direction: column;
-    height: 100vh;
+    justify-content: space-around;
+    padding: 10px;
 }
 
-h1, h2 {
-    color: #C0EB6A;
+.bottom-nav button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
 }
 
-button {
-    background-color: #42564F;
-    color: white;
+/* Day buttons */
+.day-buttons {
+    margin-top: 20px;
+}
+
+.day-btn {
+    background-color: #DFDDCS;
     border: none;
     padding: 10px;
     margin: 5px;
     cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.hidden {
-    display: none;
-}
-
-/* General screen layout */
-.screen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 1;
-}
-
-/* Weekday buttons styling */
-#weekday-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-#weekday-list li {
-    margin: 10px 0;
-}
-
-.day-btn {
-    width: 80%;
-}
-
-#exercise-list {
-    list-style-type: none;
-    padding: 0;
-}
-
-#exercise-list li {
-    background: white;
-    margin: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.back-btn {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    font-size: 18px;
-}
-
-/* Notification styling */
-#notification {
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #42564F;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    font-size: 14px;
-    display: none;
-}
-
-/* Bottom navigation menu */
-#bottom-nav {
-    display: flex;
-    justify-content: space-around;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #42564F;
-    padding: 10px 0;
-}
-
-.nav-btn {
-    background: none;
-    color: white;
-    border: none;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.nav-btn p {
-    margin-top: 5px;
-    font-size: 12px;
 }
